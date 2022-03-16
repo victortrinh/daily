@@ -25,10 +25,6 @@ code {
   padding-top: 0 !important;
 }
 
-h2 {
-  margin-top: 0 !important;
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

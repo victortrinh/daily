@@ -1,17 +1,17 @@
 import { Container, ThemeProvider } from '@mui/material';
 import { Routing } from '@routes/Routing';
-import VolumeOff from '@mui/icons-material/VolumeOff';
-import VolumeOn from '@mui/icons-material/VolumeUp';
 import LightMode from '@mui/icons-material/LightMode';
-import DarkIcon from '@mui/icons-material/Brightness2';
+import DarkMode from '@mui/icons-material/Brightness2';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 import { HashRouter } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useAppContext } from './contexts/AppContext';
+import { animated } from 'react-spring';
 import { light, dark } from './common/theme';
+import { VolumeButtons } from './components/VolumeButtons';
+import useBoop from './hooks/use-boop.hook';
 
-const Wrapper = styled.div.attrs({ className: 'w-full h-full min-h-screen bg-beige text-black dark:bg-dark dark:text-white pb-8' })`
+const Wrapper = styled.div.attrs({ className: 'w-full h-full min-h-screen bg-beige text-black dark:bg-darkerkblue dark:text-white pb-8' })`
   .top {
     ${tw`flex justify-end w-full pt-4 pr-4 gap-4`};
   }
@@ -19,16 +19,22 @@ const Wrapper = styled.div.attrs({ className: 'w-full h-full min-h-screen bg-bei
   .volume-icon {
     ${tw`cursor-pointer`};
   }
+
+  h1 {
+    ${tw`text-darkpurple dark:text-brightyellow`};
+  }
+
+  h2 {
+    ${tw`text-blue`};
+  }
 `;
 
-const App = () => {
-  const { mute, setMute } = useAppContext();
-  const [darkMode, setDarkMode] = useState(true);
+const AnimatedLightMode = animated(LightMode);
+const AnimatedDarkMode = animated(DarkMode);
 
-  const setSound = () => {
-    localStorage.setItem('mute', JSON.stringify(!mute));
-    setMute?.(!mute);
-  };
+const App = () => {
+  const [darkMode, setDarkMode] = useState(true);
+  const [style, trigger] = useBoop({ rotation: 20, timing: 200 });
 
   const setDark = () => {
     setDarkMode(true);
@@ -55,8 +61,10 @@ const App = () => {
       <HashRouter>
         <Wrapper>
           <div className="top">
-            {mute ? <VolumeOff className="volume-icon" onClick={setSound} /> : <VolumeOn className="volume-icon" onClick={setSound} />}
-            {darkMode ? <LightMode className="volume-icon" onClick={setLight} /> : <DarkIcon className="volume-icon" onClick={setDark} />}
+            <VolumeButtons />
+            {darkMode
+              ? <AnimatedLightMode onMouseEnter={trigger} className="volume-icon" onClick={setLight} style={style} />
+              : <AnimatedDarkMode onMouseEnter={trigger} className="volume-icon" onClick={setDark} style={style} />}
           </div>
           <Container maxWidth="sm">
             <Routing />

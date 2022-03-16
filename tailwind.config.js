@@ -38,6 +38,12 @@ module.exports = {
       brown: Colors.brown,
       violet: Colors.violet,
       orange: Colors.orange,
+      darkerkblue: 'hsl(210deg, 30%, 8%)',
+      darkblue: 'hsl(210deg, 30%, 12%)',
+      brightyellow: 'hsl(53deg, 100%, 50%)',
+      darkpurple: 'hsl(255deg, 85%, 30%)',
+      grey: 'hsl(210deg, 15%, 20%)',
+      blue: 'hsl(230deg, 100%, 67%)',
     },
   },
   plugins: [
@@ -45,10 +51,16 @@ module.exports = {
       addBase, addComponents, addUtilities, theme,
     }) => {
       addBase({
+        h1: {
+          fontSize: theme('fontSize.2xl'),
+          marginBottom: theme('spacing.6'),
+          fontWeight: '800',
+        },
         h2: {
           fontSize: theme('fontSize.xl'),
+          marginTop: theme('spacing.6'),
           marginBottom: theme('spacing.4'),
-          fontWeight: '600',
+          fontWeight: '700',
         },
         h3: {
           fontSize: theme('fontSize.lg'),

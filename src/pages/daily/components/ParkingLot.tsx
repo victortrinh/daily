@@ -33,7 +33,7 @@ export const ParkingLot = ({ onAdd }: Props) => {
         size="small"
         className="parking-lot-input"
         value={parkingLotSubject}
-        label="Parking lot subject"
+        label="Add parking lot subject"
         required
         variant="outlined"
         onChange={(e: ChangeEvent<HTMLInputElement>) => setParkingLotSubject(e.target.value)}

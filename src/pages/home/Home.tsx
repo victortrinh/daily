@@ -1,8 +1,7 @@
-import { TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { Button } from '@components/Button';
 import tw from 'twin.macro';
 
 const StyledContainer = styled.div.attrs(
@@ -13,7 +12,7 @@ const StyledContainer = styled.div.attrs(
   }
   
   .form {
-    ${tw`w-full p-8 flex flex-col justify-center rounded-xl bg-white dark:bg-black my-8 shadow-default`};
+    ${tw`w-full p-8 flex flex-col justify-center rounded-xl bg-white dark:bg-darkblue my-8 shadow-default`};
   }
   
   .error {
@@ -51,7 +50,7 @@ const Home = () => {
   return (
     <StyledContainer>
       <div className="form">
-        <h2>Enter people participating in daily</h2>
+        <h1>Enter people participating in daily</h1>
         <TextField
           error={error}
           fullWidth
@@ -64,7 +63,7 @@ const Home = () => {
         />
         { error && <div className="error">Cannot be blank</div> }
         <div className="button-container">
-          <Button onMouseUp={onSubmit} text="Start daily" />
+          <Button size="large" variant="outlined" fullWidth onMouseUp={onSubmit}>Start daily</Button>
         </div>
       </div>
     </StyledContainer>

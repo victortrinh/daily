@@ -4,8 +4,9 @@ import { Gif } from '@giphy/react-components/';
 import { GifsResult, GiphyFetch } from '@giphy/js-fetch-api';
 import { colors } from '@mui/material';
 import tw from 'twin.macro';
-import { useSpring, animated } from 'react-spring';
+import { animated } from 'react-spring';
 import Icon from '@mui/icons-material/Celebration';
+import useBoop from '@/hooks/use-boop.hook';
 import { Quote } from './types/quote';
 import { ConfettiGeyser } from './components';
 
@@ -13,7 +14,7 @@ const gf = new GiphyFetch('HTMGm6cO0h71Clpw9QqXqpoOyEApQZHp');
 const CelebrationIcon = animated(Icon);
 
 const StyledContainer = styled.div.attrs(
-  { className: 'w-full flex items-center flex-col p-8 my-8 rounded-xl bg-white dark:bg-black shadow-default' },
+  { className: 'w-full flex items-center flex-col p-8 my-8 rounded-xl bg-white dark:bg-darkblue shadow-default' },
 )`  
   .confetti {
     ${tw`cursor-pointer`};
@@ -52,11 +53,9 @@ const Celebration = () => {
   const [gifs, setGifs] = useState<GifsResult>();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [gif, setGif] = useState<any>();
-  const [isHovering, setIsHovering] = useState(false);
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [quote, setQuote] = useState<Quote>();
-
-  const props = useSpring({ scale: isHovering ? 1 : 0 });
+  const [style, trigger] = useBoop({ rotation: 20, timing: 200 });
 
   const randomQuote = () => setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
   const randomGif = () => setGif(gifs?.data?.[Math.floor(Math.random() * gifs.data.length)]);
@@ -94,25 +93,17 @@ const Celebration = () => {
 
   return (
     <StyledContainer>
-      <h2>
+      <h1>
         End of daily!
         {' '}
         <CelebrationIcon
           aria-hidden="true"
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
+          onMouseEnter={trigger}
           onClick={() => setShowConfettis(!showConfettis)}
           className="confetti"
-          style={{
-            transform: props.scale
-              .to({
-                range: [0, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 1],
-                output: [1, 0.97, 0.9, 1.1, 1.2, 1.3, 1.4, 1.5],
-              })
-              .to((scale) => `scale(${scale})`),
-          }}
+          style={style}
         />
-      </h2>
+      </h1>
       {gif && (
         <Gif
           className="gif"

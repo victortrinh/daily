@@ -2,19 +2,19 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Person } from '@/pages/daily/types/person';
-import { Button as ThreeDButton } from '@/components/Button';
 import tw from 'twin.macro';
 import BackIcon from '@mui/icons-material/ArrowBackIos';
 import DeleteIcon from '@mui/icons-material/DeleteForever';
 import useSound from 'use-sound';
 import { useAppContext } from '@/contexts/AppContext';
 import { Checkbox } from '@/components/Checkbox';
+import { Button } from '@mui/material';
 import {
   DrumRoll, ParkingLot, PeopleToPass, PersonToPass,
 } from './components';
 import { backgroundColors } from './utils/background-colors';
 
-const StyledContainer = styled.div.attrs({ className: 'my-8 p-8 rounded-xl relative bg-white dark:bg-black shadow-default' })`
+const StyledContainer = styled.div.attrs({ className: 'my-8 p-8 rounded-xl relative bg-white dark:bg-darkblue shadow-default' })`
   .back-button {
     ${tw`absolute left-8 top-8 mt-0.5 cursor-pointer w-6`};
   }
@@ -138,10 +138,10 @@ const DailyDetails = ({
       {(personPassing || peopleToPass.length > 0)
         && <PersonToPass backgroundColor={backgroundColor} isFirst={count === 1} personPassing={personPassing} /> }
       {peopleToPass.length === 0 ? (
-        <ThreeDButton onMouseUp={onClickFinish} text={parkingLotSubjects.length > 0 && !completedAllParkingLotSubjects ? 'Complete parking lot tickets' : 'End daily'} />
+        <Button size="large" fullWidth variant="outlined" onClick={onClickFinish}>{parkingLotSubjects.length > 0 && !completedAllParkingLotSubjects ? 'Complete parking lot tickets' : 'End daily'}</Button>
       ) : (
         <div className="draw-randomly">
-          <ThreeDButton disabled={isDrumming} onMouseUp={onClick} text={message} />
+          <Button size="large" fullWidth variant="outlined" disabled={isDrumming} onClick={onClick}>{message}</Button>
           {peopleToPass.length > 1 && <DrumRoll className="drum" onClick={onClickDrumRoll} />}
         </div>
       )}

@@ -6,7 +6,8 @@
       "@common/*": ["./src/common/*"],
       "@components/*": ["./src/components/*"],
       "@pages/*": ["./src/pages/*"],
-      "@routes/*": ["./src/routes/*"]
+      "@routes/*": ["./src/routes/*"],
+      "@hooks/*": ["./src/hooks/*"]
     }
   }
 }
