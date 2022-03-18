@@ -4,7 +4,6 @@ import {
 import styled from 'styled-components';
 import { Image } from '@components/Image';
 import { Person } from '../../types/person';
-import { backgroundColors } from '../../utils/background-colors';
 
 type Props = {
   peopleToPass: Person[];
@@ -19,7 +18,7 @@ export const PeopleToPass = ({ peopleToPass }: Props) => (
       {peopleToPass.map((person) => (
         <ListItem key={person.id}>
           <ListItemAvatar>
-            <Avatar sx={{ bgcolor: backgroundColors[Math.floor(Math.random() * backgroundColors.length)] }}>
+            <Avatar sx={{ bgcolor: person.backgroundColor }}>
               <Image
                 src={`${process.env.PUBLIC_URL}/photos/${person.name.toLowerCase()}-glab.png`}
                 alt={person.name}

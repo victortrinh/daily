@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Person } from '@/pages/daily/types/person';
@@ -8,7 +8,7 @@ import DeleteIcon from '@mui/icons-material/DeleteForever';
 import useSound from 'use-sound';
 import { useAppContext } from '@/contexts/AppContext';
 import { Checkbox } from '@/components/Checkbox';
-import { Button } from '@mui/material';
+import { Button, Tooltip } from '@mui/material';
 import {
   DrumRoll, ParkingLot, PeopleToPass, PersonToPass,
 } from './components';
@@ -46,6 +46,10 @@ const StyledContainer = styled.div.attrs({ className: 'my-8 p-8 rounded-xl relat
   .delete-icon {
     ${tw`cursor-pointer`};
   }
+
+  .buttons {
+    ${tw`mt-4`};
+  }
 `;
 
 type Props = {
@@ -58,25 +62,39 @@ const DailyDetails = ({
   const allNames: Person[] = names?.split(/\r?\n/).filter((name) => !!name).map((name, index) => ({
     id: index,
     name: name.trim(),
+    backgroundColor: backgroundColors[Math.floor(Math.random() * backgroundColors.length)],
   })) ?? [];
 
-  const [backgroundColor, setBackgroundColor] = useState(backgroundColors[Math.floor(Math.random()
-    * backgroundColors.length)]);
   const [peopleToPass, setPeopleToPass] = useState<Person[]>(allNames);
-  const [personPassing, setPersonPassing] = useState<string>();
+  const [personPassing, setPersonPassing] = useState<Person | undefined>();
   const [count, setCount] = useState(0);
   const [isDrumming, setIsDrumming] = useState(false);
+  const [parkingLotSubjects, setParkingLotSubjects] = useState<{id: string, name: string, checked: boolean}[]>([]);
+
+  const hasParkingLotSubjects = parkingLotSubjects.length > 0;
 
   const onClick = () => {
     if (!peopleToPass) {
       return;
     }
 
-    setBackgroundColor(backgroundColors[Math.floor(Math.random() * backgroundColors.length)]);
+    if (peopleToPass.length === 0) {
+      if (hasParkingLotSubjects) {
+        setPersonPassing(undefined);
+        return;
+      }
+
+      onClickFinish();
+      return;
+    }
+
     const [person] = peopleToPass.splice(Math.floor(Math.random() * peopleToPass.length), 1);
     setPeopleToPass(peopleToPass);
-    setPersonPassing(person.name);
-    setCount((prevCount) => prevCount + 1);
+    setPersonPassing(person);
+
+    if (count <= 1) {
+      setCount((prevCount) => prevCount + 1);
+    }
   };
 
   const navigate = useNavigate();
@@ -85,16 +103,7 @@ const DailyDetails = ({
     navigate('/');
   };
 
-  const [parkingLotSubjects, setParkingLotSubjects] = useState<{id: number, name: string}[]>([]);
-  const [numberOfCheckedItems, setNumberOfCheckedItems] = useState(0);
-  const completedAllParkingLotSubjects = numberOfCheckedItems === parkingLotSubjects.length;
-
   const onClickFinish = () => {
-    if (!completedAllParkingLotSubjects) {
-      setPersonPassing(undefined);
-      return;
-    }
-
     navigate('/celebration', { state: { names } });
   };
 
@@ -105,7 +114,7 @@ const DailyDetails = ({
     setIsDrumming(true);
     let number = 0;
     const interval = setInterval(() => {
-      setPersonPassing(peopleToPass[Math.floor(Math.random() * peopleToPass.length)].name);
+      setPersonPassing(peopleToPass[Math.floor(Math.random() * peopleToPass.length)]);
 
       if (++number === 19) {
         setIsDrumming(false);
@@ -117,7 +126,7 @@ const DailyDetails = ({
   };
 
   const onAdd = (parkingLotSubject: string) => {
-    setParkingLotSubjects((prevState) => prevState.concat({ id: parkingLotSubjects.length + 1, name: parkingLotSubject }));
+    setParkingLotSubjects((prevState) => prevState.concat({ id: (parkingLotSubjects.length + 1).toString(), name: parkingLotSubject, checked: false }));
   };
 
   const onClickDeleteSubject = (index: number) => () => {
@@ -126,22 +135,40 @@ const DailyDetails = ({
     setParkingLotSubjects(array);
   };
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNumberOfCheckedItems((prevState) => (event.target.checked ? prevState + 1 : prevState - 1));
+  const getMessage = () => {
+    if (isDrumming) {
+      return 'Drumming!';
+    }
+
+    if (peopleToPass.length > 1) {
+      return 'Draw randomly';
+    }
+
+    if (peopleToPass.length === 1) {
+      return 'Draw last person';
+    }
+
+    if (hasParkingLotSubjects) {
+      return 'Last person finished';
+    }
+
+    return 'End daily';
   };
 
-  const message = isDrumming ? 'Currently drumming!' : (peopleToPass.length > 1 ? 'Draw randomly' : 'Draw last person');
+  const onChangeParkingLotSubject = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, checked } = event.target;
+    setParkingLotSubjects((prevState) => prevState.map((x) => (x.id === id ? { ...x, checked } : x)));
+  };
+
+  const isEndDisabled = parkingLotSubjects.some((x) => !x.checked);
 
   return (
     <StyledContainer>
       <BackIcon onClick={onClickBack} className="back-button" />
-      {(personPassing || peopleToPass.length > 0)
-        && <PersonToPass backgroundColor={backgroundColor} isFirst={count === 1} personPassing={personPassing} /> }
-      {peopleToPass.length === 0 ? (
-        <Button size="large" fullWidth variant="outlined" onClick={onClickFinish}>{parkingLotSubjects.length > 0 && !completedAllParkingLotSubjects ? 'Complete parking lot tickets' : 'End daily'}</Button>
-      ) : (
+      <PersonToPass backgroundColor={personPassing?.backgroundColor} isFirst={count === 1} personPassing={personPassing?.name} />
+      {(peopleToPass.length > 0 || personPassing) && (
         <div className="draw-randomly">
-          <Button size="large" fullWidth variant="outlined" disabled={isDrumming} onClick={onClick}>{message}</Button>
+          <Button size="large" fullWidth variant="outlined" disabled={isDrumming} onClick={onClick}>{getMessage()}</Button>
           {peopleToPass.length > 1 && <DrumRoll className="drum" onClick={onClickDrumRoll} />}
         </div>
       )}
@@ -150,12 +177,21 @@ const DailyDetails = ({
         <div className="parking-lot-subjects">
           {parkingLotSubjects.map((subject, index) => (
             <div key={subject.id} className="subject">
-              <Checkbox onChange={onChange} label={subject.name} />
+              <Checkbox id={subject.id} onChange={onChangeParkingLotSubject} label={subject.name} />
               <DeleteIcon className="delete-icon" onClick={onClickDeleteSubject(index)} />
             </div>
           ))}
         </div>
       )}
+      <div className="buttons">
+        {peopleToPass.length === 0 && !personPassing && (
+          <Tooltip arrow title={isEndDisabled ? 'Complete all parking lot subjects' : ''} followCursor>
+            <span>
+              <Button disabled={isEndDisabled} size="large" fullWidth variant="outlined" onClick={onClickFinish}>End daily</Button>
+            </span>
+          </Tooltip>
+        )}
+      </div>
       {peopleToPass.length > 0 && (
         <PeopleToPass peopleToPass={peopleToPass} />
       )}

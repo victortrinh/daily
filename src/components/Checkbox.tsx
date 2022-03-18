@@ -6,6 +6,7 @@ import { useAppContext } from '@/contexts/AppContext';
 import tw from 'twin.macro';
 
 type Props = {
+  id?: string;
   name?: string;
   size?: number;
   checked?: boolean;
@@ -17,6 +18,7 @@ type Props = {
 
 export const Checkbox = ({
   size = 18,
+  id,
   name,
   checked,
   label,
@@ -58,6 +60,7 @@ export const Checkbox = ({
   return (
     <Wrapper>
       <RealCheckbox
+        id={id}
         name={name}
         onMouseDown={(e) => {
           setActive(true);

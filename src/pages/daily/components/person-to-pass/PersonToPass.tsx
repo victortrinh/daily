@@ -5,11 +5,12 @@ import { Image } from '@components/Image';
 import { animated } from 'react-spring';
 import useBoop from '@/hooks/use-boop.hook';
 import { Timer } from './components';
+import { backgroundColors } from '../../utils/background-colors';
 
 type Props = {
   personPassing?: string;
   isFirst: boolean;
-  backgroundColor: string;
+  backgroundColor?: string;
 };
 
 type StyledProps = {
@@ -45,8 +46,10 @@ const AnimatedImage = animated(Image);
 export const PersonToPass = ({ personPassing, isFirst, backgroundColor }: Props) => {
   const [style, trigger] = useBoop({ rotation: 30, scale: 1.3, timing: 200 });
 
+  const color = backgroundColor ?? backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
+
   return (
-    <StyledContainer backgroundColor={backgroundColor}>
+    <StyledContainer backgroundColor={color}>
       <h1>Person passing</h1>
       <div className="avatar">
         {!personPassing
