@@ -30,7 +30,7 @@ const StyledContainer = styled.div.attrs(
 
 const Home = () => {
   const navigate = useNavigate();
-  const [names, setNames] = useState('Kevin\nMaxime\nVictor\nJean-Luc\nEric\nFrancis\nJonathan');
+  const [names, setNames] = useState('Kevin\nMaxime\nVictor\nJean-Luc\nEric\nFrancis\nJonathan\nSteve');
   const [error, setError] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {

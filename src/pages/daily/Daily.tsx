@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Person } from '@/pages/daily/types/person';
@@ -9,10 +9,12 @@ import useSound from 'use-sound';
 import { useAppContext } from '@/contexts/AppContext';
 import { Checkbox } from '@/components/Checkbox';
 import { Button, Tooltip } from '@mui/material';
+import { sprites } from '@/assets/default-sprites';
 import {
   DrumRoll, ParkingLot, PeopleToPass, PersonToPass,
 } from './components';
 import { backgroundColors } from './utils/background-colors';
+import { ConfettiGeyser } from '../celebration/components';
 
 const StyledContainer = styled.div.attrs({ className: 'my-8 p-8 rounded-xl relative bg-white dark:bg-darkblue shadow-default' })`
   .back-button {
@@ -70,6 +72,10 @@ const DailyDetails = ({
   const [count, setCount] = useState(0);
   const [isDrumming, setIsDrumming] = useState(false);
   const [parkingLotSubjects, setParkingLotSubjects] = useState<{id: string, name: string, checked: boolean}[]>([]);
+  const [showConfettis, setShowConfettis] = useState(false);
+  const [engineOn, setEngineOn] = useState(false);
+  const timeoutConfettis : { current: NodeJS.Timeout | undefined } = useRef(undefined);
+  const timeoutEngine: { current: NodeJS.Timeout | undefined } = useRef(undefined);
 
   const hasParkingLotSubjects = parkingLotSubjects.length > 0;
 
@@ -115,7 +121,6 @@ const DailyDetails = ({
     let number = 0;
     const interval = setInterval(() => {
       setPersonPassing(peopleToPass[Math.floor(Math.random() * peopleToPass.length)]);
-
       if (++number === 19) {
         setIsDrumming(false);
         onClick();
@@ -162,6 +167,24 @@ const DailyDetails = ({
 
   const isEndDisabled = parkingLotSubjects.some((x) => !x.checked);
 
+  useEffect(() => {
+    if (count === 1) {
+      setEngineOn(true);
+      setShowConfettis(true);
+      timeoutConfettis.current = setTimeout(() => {
+        setShowConfettis(false);
+      }, 500);
+      timeoutEngine.current = setTimeout(() => {
+        setEngineOn(false);
+      }, 4000);
+    }
+
+    return () => {
+      clearTimeout(timeoutConfettis.current as NodeJS.Timeout);
+      clearTimeout(timeoutEngine.current as NodeJS.Timeout);
+    };
+  }, [count]);
+
   return (
     <StyledContainer>
       <BackIcon onClick={onClickBack} className="back-button" />
@@ -194,6 +217,22 @@ const DailyDetails = ({
       </div>
       {peopleToPass.length > 0 && (
         <PeopleToPass peopleToPass={peopleToPass} />
+      )}
+      {engineOn && (
+        <ConfettiGeyser
+          position={[
+            window.innerWidth / 2,
+            window.innerHeight,
+          ]}
+          airFriction={0.04}
+          velocity={30}
+          angularVelocity={0.6}
+          angle={-90}
+          spread={20}
+          volatility={0.75}
+          concentration={50}
+          samples={showConfettis ? sprites : [{ airFrictionMultiplier: 0 }]}
+        />
       )}
     </StyledContainer>
   );

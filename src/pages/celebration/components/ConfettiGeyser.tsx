@@ -24,6 +24,7 @@ const useGeneratedParticles = (
   enableCollisions: any,
   volatility: number,
   spread: number,
+  samples: any[],
 ) => {
   const timeBetweenParticles = 1000 / concentration;
 
@@ -34,7 +35,7 @@ const useGeneratedParticles = (
 
     const [top, left] = position;
 
-    const sprite: any = sample(faces);
+    const sprite: any = sample(samples);
 
     const config: any = {
       frictionAir: airFriction * sprite.airFrictionMultiplier,
@@ -135,6 +136,7 @@ export const ConfettiGeyser = ({
   // 15: moderate
   // 30: intense
   concentration,
+  samples = faces,
 }: any) => {
   const canvasRef = React.useRef(null);
 
@@ -151,6 +153,7 @@ export const ConfettiGeyser = ({
     enableCollisions,
     volatility,
     spread,
+    samples,
   );
   useParticleCleanup(engine);
 

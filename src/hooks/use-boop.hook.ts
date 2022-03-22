@@ -51,4 +51,5 @@ export const useBoop = ({
 
   return [appliedStyle, trigger];
 };
+
 export default useBoop;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Gif } from '@giphy/react-components/';
 import { GifsResult, GiphyFetch } from '@giphy/js-fetch-api';
@@ -7,8 +7,10 @@ import tw from 'twin.macro';
 import { animated } from 'react-spring';
 import Icon from '@mui/icons-material/Celebration';
 import useBoop from '@/hooks/use-boop.hook';
+import { faces } from '@/assets/default-sprites';
 import { Quote } from './types/quote';
 import { ConfettiGeyser } from './components';
+import { backgroundColors } from '../daily/utils/background-colors';
 
 const gf = new GiphyFetch('HTMGm6cO0h71Clpw9QqXqpoOyEApQZHp');
 const CelebrationIcon = animated(Icon);
@@ -49,7 +51,8 @@ const StyledContainer = styled.div.attrs(
 const API = 'https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json';
 
 const Celebration = () => {
-  const [showConfettis, setShowConfettis] = useState(true);
+  const [showConfettis, setShowConfettis] = useState(false);
+  const [engineOn, setEngineOn] = useState(false);
   const [gifs, setGifs] = useState<GifsResult>();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [gif, setGif] = useState<any>();
@@ -59,6 +62,23 @@ const Celebration = () => {
 
   const randomQuote = () => setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
   const randomGif = () => setGif(gifs?.data?.[Math.floor(Math.random() * gifs.data.length)]);
+  const timeoutId : { current: NodeJS.Timeout | undefined } = useRef(undefined);
+  const secondTimeoutId: { current: NodeJS.Timeout | undefined } = useRef(undefined);
+
+  const boopConfettis = () => {
+    clearTimeout(timeoutId?.current as NodeJS.Timeout);
+    clearTimeout(secondTimeoutId?.current as NodeJS.Timeout);
+    setShowConfettis(true);
+    setEngineOn(true);
+
+    timeoutId.current = setTimeout(() => {
+      setShowConfettis(false);
+    }, 1000);
+
+    secondTimeoutId.current = setTimeout(() => {
+      setEngineOn(false);
+    }, 5000);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,21 +95,14 @@ const Celebration = () => {
         setQuotes(data.quotes);
         setQuote(data.quotes[Math.floor(Math.random() * data.quotes.length)]);
       });
+
+    boopConfettis();
+
+    return () => {
+      clearTimeout(timeoutId.current as NodeJS.Timeout);
+      clearTimeout(secondTimeoutId.current as NodeJS.Timeout);
+    };
   }, []);
-
-  const [position] = React.useState([
-    window.innerWidth / 2,
-    window.innerHeight,
-  ]);
-
-  const [enableCollisions] = React.useState(true);
-  const [airFriction] = React.useState(0.04);
-  const [velocity] = React.useState(15);
-  const [angularVelocity] = React.useState(0.6);
-  const [angle] = React.useState(-90);
-  const [spread] = React.useState(20);
-  const [volatility] = React.useState(0.75);
-  const [concentration] = React.useState(10);
 
   return (
     <StyledContainer>
@@ -99,13 +112,14 @@ const Celebration = () => {
         <CelebrationIcon
           aria-hidden="true"
           onMouseEnter={trigger}
-          onClick={() => setShowConfettis(!showConfettis)}
+          onClick={boopConfettis}
           className="confetti"
           style={style}
         />
       </h1>
       {gif && (
         <Gif
+          backgroundColor={backgroundColors[Math.floor(Math.random() * backgroundColors.length)]}
           className="gif"
           width={500}
           gif={gif}
@@ -126,18 +140,21 @@ const Celebration = () => {
       </div>
       )}
       <h2 className="end">🤘 Have a nice day everyone! 🤘</h2>
-      {showConfettis && (
-      <ConfettiGeyser
-        position={position}
-        enableCollisions={enableCollisions}
-        airFriction={airFriction}
-        velocity={velocity}
-        angularVelocity={angularVelocity}
-        angle={angle}
-        spread={spread}
-        volatility={volatility}
-        concentration={concentration}
-      />
+      {engineOn && (
+        <ConfettiGeyser
+          position={[
+            window.innerWidth / 2,
+            window.innerHeight,
+          ]}
+          airFriction={0.04}
+          velocity={30}
+          angularVelocity={0.5}
+          angle={-90}
+          spread={20}
+          volatility={0.75}
+          concentration={50}
+          samples={showConfettis ? faces : [{ airFrictionMultiplier: 0 }]}
+        />
       )}
     </StyledContainer>
   );
