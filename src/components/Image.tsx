@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type Props = {
   src: string;
@@ -7,6 +7,10 @@ type Props = {
 
 export const Image = ({ src, alt }: Props) => {
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    setError(false);
+  }, [src]);
 
   const onError = () => {
     setError(true);

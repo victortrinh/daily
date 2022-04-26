@@ -1,8 +1,10 @@
-import { Button, TextField } from '@mui/material';
+import { Button, Collapse, TextField } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import tw from 'twin.macro';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 const StyledContainer = styled.div.attrs(
   { className: 'w-full h-screen' },
@@ -26,16 +28,26 @@ const StyledContainer = styled.div.attrs(
   .button-container {
     ${tw`mt-6`};
   }
+
+  .collapse {
+    ${tw`cursor-pointer flex gap-3 my-4`};
+  }
 `;
 
 const Home = () => {
   const navigate = useNavigate();
   const [names, setNames] = useState('Kevin\nMaxime\nVictor\nJean-Luc\nEric\nFrancis\nJonathan\nSteve');
+  const [waitlist, setWaitlist] = useState<null | string>(null);
   const [error, setError] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setError(false);
     setNames(event.target.value);
+  };
+
+  const handleWaitlistChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setWaitlist(event.target.value);
   };
 
   const onSubmit = () => {
@@ -44,7 +56,11 @@ const Home = () => {
       return;
     }
 
-    navigate('/start', { state: { names } });
+    navigate('/start', { state: { names, waitlist } });
+  };
+
+  const onClickCollapse = () => {
+    setCollapsed(!collapsed);
   };
 
   return (
@@ -62,6 +78,23 @@ const Home = () => {
           variant="outlined"
         />
         { error && <div className="error">Cannot be blank</div> }
+        <div className="collapse" onClick={onClickCollapse} aria-hidden="true">
+          Waitlist
+          {collapsed
+            ? <KeyboardArrowDownIcon />
+            : <KeyboardArrowUpIcon />}
+        </div>
+        <Collapse in={!collapsed}>
+          <TextField
+            error={error}
+            fullWidth
+            label="Waitlist"
+            minRows={2}
+            multiline
+            onChange={handleWaitlistChange}
+            variant="outlined"
+          />
+        </Collapse>
         <div className="button-container">
           <Button size="large" variant="outlined" fullWidth onMouseUp={onSubmit}>Start daily</Button>
         </div>

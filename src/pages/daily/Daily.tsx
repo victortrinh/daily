@@ -56,18 +56,26 @@ const StyledContainer = styled.div.attrs({ className: 'my-8 p-8 rounded-xl relat
 
 type Props = {
   names?: string;
+  waitlist?: string;
 }
 
 const DailyDetails = ({
   names,
+  waitlist,
 }: Props) => {
   const allNames: Person[] = names?.split(/\r?\n/).filter((name) => !!name).map((name, index) => ({
     id: index,
     name: name.trim(),
     backgroundColor: backgroundColors[Math.floor(Math.random() * backgroundColors.length)],
   })) ?? [];
+  const allWaitlistNames: Person[] = waitlist?.split(/\r?\n/).filter((name) => !!name).map((name, index) => ({
+    id: index,
+    name: name.trim(),
+    backgroundColor: backgroundColors[Math.floor(Math.random() * backgroundColors.length)],
+  })) ?? [];
 
   const [peopleToPass, setPeopleToPass] = useState<Person[]>(allNames);
+  const [peopleWaitlist, setPeopleWaitlist] = useState<Person[]>(allWaitlistNames);
   const [personPassing, setPersonPassing] = useState<Person | undefined>();
   const [count, setCount] = useState(0);
   const [isDrumming, setIsDrumming] = useState(false);
@@ -95,7 +103,27 @@ const DailyDetails = ({
     }
 
     const [person] = peopleToPass.splice(Math.floor(Math.random() * peopleToPass.length), 1);
-    setPeopleToPass(peopleToPass);
+    setPeopleToPass([...peopleToPass]);
+    setPersonPassing(person);
+
+    if (count <= 1) {
+      setCount((prevCount) => prevCount + 1);
+    }
+  };
+
+  const onClickPerson = (index: number) => {
+    const [person] = peopleToPass.splice(index, 1);
+    setPeopleToPass([...peopleToPass]);
+    setPersonPassing(person);
+
+    if (count <= 1) {
+      setCount((prevCount) => prevCount + 1);
+    }
+  };
+
+  const onClickPersonWaitlist = (index: number) => {
+    const [person] = peopleWaitlist.splice(index, 1);
+    setPeopleWaitlist([...peopleWaitlist]);
     setPersonPassing(person);
 
     if (count <= 1) {
@@ -216,7 +244,10 @@ const DailyDetails = ({
         )}
       </div>
       {peopleToPass.length > 0 && (
-        <PeopleToPass peopleToPass={peopleToPass} />
+        <PeopleToPass title="People to pass" onClickPerson={onClickPerson} peopleToPass={peopleToPass} />
+      )}
+      {peopleWaitlist.length > 0 && (
+        <PeopleToPass title="Waitlist" onClickPerson={onClickPersonWaitlist} peopleToPass={peopleWaitlist} />
       )}
       {engineOn && (
         <ConfettiGeyser
