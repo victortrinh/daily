@@ -95,7 +95,21 @@ export const faces = [
   },
   {
     src:
-      `${process.env.PUBLIC_URL}/photos/mini-steve-glab.png`,
+      `${process.env.PUBLIC_URL}/photos/mini-etienne-glab.png`,
+    width: 5,
+    height: 5,
+    airFrictionMultiplier: 0.75,
+  },
+  {
+    src:
+      `${process.env.PUBLIC_URL}/photos/mini-kanika-glab.png`,
+    width: 5,
+    height: 5,
+    airFrictionMultiplier: 0.75,
+  },
+  {
+    src:
+      `${process.env.PUBLIC_URL}/photos/mini-gr-glab.png`,
     width: 5,
     height: 5,
     airFrictionMultiplier: 0.75,

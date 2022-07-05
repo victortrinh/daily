@@ -26,7 +26,7 @@ export default function usePhysicsEngine(ref: any) {
       },
     });
 
-    Matter.Engine.run(newEngine);
+    Matter.Runner.run(newEngine);
     Matter.Render.run(newRenderer);
 
     setEngine(newEngine);

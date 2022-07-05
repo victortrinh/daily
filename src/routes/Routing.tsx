@@ -4,7 +4,8 @@ import { Home, Daily, Celebration } from '@/pages';
 export function Routing() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route index element={<Home />} />
+      <Route path="/:project" element={<Home />} />
       <Route path="/start" element={<Daily />} />
       <Route path="/celebration" element={<Celebration />} />
     </Routes>
