@@ -53,6 +53,13 @@ export const faces = [
   },
   {
     src:
+      `${process.env.PUBLIC_URL}/photos/mini-ben-glab.png`,
+    width: 5,
+    height: 5,
+    airFrictionMultiplier: 0.75,
+  },
+  {
+    src:
     `${process.env.PUBLIC_URL}/photos/mini-francis-glab.png`,
     width: 5,
     height: 5,

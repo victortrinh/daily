@@ -43,7 +43,7 @@ const StyledContainer = styled.div.attrs({ className: 'w-full h-screen' })`
 `;
 
 const Home = () => {
-  const softstartNames = 'Kevin\nMaxime\nVictor\nJean-Luc\nEric\nFrancis\nJonathan';
+  const softstartNames = 'Kevin\nMaxime\nVictor\nJean-Luc\nEric\nFrancis\nJonathan\nBen';
   const portraitNames = 'Maxime\nEtienne\nKanika\nGR\nEric';
 
   const navigate = useNavigate();
