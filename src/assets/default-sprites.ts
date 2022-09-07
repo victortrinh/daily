@@ -121,4 +121,11 @@ export const faces = [
     height: 5,
     airFrictionMultiplier: 0.75,
   },
+  {
+    src:
+      `${process.env.PUBLIC_URL}/photos/mini-mike-glab.png`,
+    width: 5,
+    height: 5,
+    airFrictionMultiplier: 0.75,
+  },
 ];

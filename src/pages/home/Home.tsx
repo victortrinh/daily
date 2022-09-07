@@ -44,7 +44,7 @@ const StyledContainer = styled.div.attrs({ className: 'w-full h-screen' })`
 
 const Home = () => {
   const softstartNames = 'Kevin\nMaxime\nVictor\nJean-Luc\nEric\nFrancis\nJonathan\nBen';
-  const portraitNames = 'Maxime\nEtienne\nKanika\nGR\nEric';
+  const portraitNames = 'Maxime\nEtienne\nKanika\nGR\nEric\nMike';
 
   const navigate = useNavigate();
   const initialProject = localStorage.getItem('project');
