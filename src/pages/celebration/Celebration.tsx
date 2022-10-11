@@ -139,7 +139,7 @@ const Celebration = () => {
         </div>
       </div>
       )}
-      <h2 className="end">🤘 Have a nice day everyone! 🤘</h2>
+      <h2 className="end">🤘 Wish you to have the best of days everyone! 🤘</h2>
       {engineOn && (
         <ConfettiGeyser
           position={[
