@@ -22,6 +22,7 @@
     "@types/react-router-dom": "^5.3.3",
     "giph": "^1.0.1",
     "matter-js": "^0.18.0",
+    "openai": "^3.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
