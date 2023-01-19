@@ -43,7 +43,7 @@ const StyledContainer = styled.div.attrs(
   }
 
   .quote-container {
-    ${tw`cursor-pointer text-center`};
+    ${tw`text-center`};
   }
 
   .quote {
