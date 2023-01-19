@@ -4,9 +4,9 @@ import LightMode from '@mui/icons-material/LightMode';
 import DarkMode from '@mui/icons-material/Brightness2';
 import styled from 'styled-components';
 import tw from 'twin.macro';
-import { HashRouter } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { animated } from 'react-spring';
+import { BrowserRouter } from 'react-router-dom';
 import { light, dark } from './common/theme';
 import { VolumeButtons } from './components/VolumeButtons';
 import useBoop from './hooks/use-boop.hook';
@@ -58,7 +58,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={darkMode ? dark : light}>
-      <HashRouter>
+      <BrowserRouter>
         <Wrapper>
           <div className="top">
             <VolumeButtons />
@@ -70,7 +70,7 @@ const App = () => {
             <Routing />
           </Container>
         </Wrapper>
-      </HashRouter>
+      </BrowserRouter>
     </ThemeProvider>
   );
 };
