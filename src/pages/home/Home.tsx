@@ -103,7 +103,7 @@ const Home = () => {
         onChange={handleProjectChange}
       >
         <ToggleButton value="softstart">Softstart</ToggleButton>
-        <ToggleButton value="portrait">Portrait</ToggleButton>
+        <ToggleButton value="portrait">Workleap</ToggleButton>
       </ToggleButtonGroup>
       <div className="form">
         <h1>Enter people participating in daily</h1>
