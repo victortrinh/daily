@@ -95,7 +95,7 @@ const Celebration = () => {
 
     openai.createCompletion({
       model: 'text-davinci-003',
-      prompt: 'Generate a random inspirational quote that will energize my team with an author',
+      prompt: 'Generate a non existent random inspirational quote that will energize my team with an invented author',
       max_tokens: 120,
       temperature: 0.9,
       presence_penalty: 2,
