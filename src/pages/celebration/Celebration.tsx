@@ -9,6 +9,7 @@ import Icon from '@mui/icons-material/Celebration';
 import useBoop from '@/hooks/use-boop.hook';
 import { faces } from '@/assets/default-sprites';
 import { Configuration, OpenAIApi } from 'openai';
+import { sample } from '@/utils';
 import { ConfettiGeyser } from './components';
 import { backgroundColors } from '../daily/utils/background-colors';
 import { IGif } from './types/gif';
@@ -59,6 +60,12 @@ const StyledContainer = styled.div.attrs(
   }
 `;
 
+const prompts = [
+  'Generate a non existent random inspirational quote that will energize my team with an invented author',
+  'Generate a non existent random inspirational quote that sounds like a quote from a sci-fi movie and attribute it to a character.',
+  'Generate a non existent random inspirational quote that will revolutionize the tech industry and attribute it to the God of tech',
+];
+
 const Celebration = () => {
   const [showConfettis, setShowConfettis] = useState(false);
   const [engineOn, setEngineOn] = useState(false);
@@ -95,7 +102,7 @@ const Celebration = () => {
 
     openai.createCompletion({
       model: 'text-davinci-003',
-      prompt: 'Generate a non existent random inspirational quote that will energize my team with an invented author',
+      prompt: sample(prompts),
       max_tokens: 120,
       temperature: 0.9,
       presence_penalty: 2,
