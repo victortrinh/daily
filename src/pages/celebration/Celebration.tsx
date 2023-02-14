@@ -61,9 +61,9 @@ const StyledContainer = styled.div.attrs(
 `;
 
 const prompts = [
-  'Generate a non existent random inspirational quote that will energize my team with an invented author',
+  'Generate a non existent random inspirational quote that will energize my team in Yoda style and attribute it to Yoda',
+  'Generate a non existent random inspirational quote that will energize my team in a pirate voice and attribute it to pirate character',
   'Generate a non existent random inspirational quote that sounds like a quote from a sci-fi movie and attribute it to a character.',
-  'Generate a non existent random inspirational quote that will revolutionize the tech industry and attribute it to the God of tech',
 ];
 
 const Celebration = () => {
