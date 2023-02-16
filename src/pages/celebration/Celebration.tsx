@@ -60,12 +60,6 @@ const StyledContainer = styled.div.attrs(
   }
 `;
 
-const prompts = [
-  'Generate a non existent random inspirational quote that will energize my team in Yoda style and attribute it to Yoda',
-  'Generate a non existent random inspirational quote that will energize my team in a pirate voice and attribute it to pirate character',
-  'Generate a non existent random inspirational quote that sounds like a quote from a sci-fi movie and attribute it to a character.',
-];
-
 const Celebration = () => {
   const [showConfettis, setShowConfettis] = useState(false);
   const [engineOn, setEngineOn] = useState(false);
@@ -92,6 +86,22 @@ const Celebration = () => {
       setEngineOn(false);
     }, 5000);
   };
+
+  const initialProject = localStorage.getItem('project');
+
+  const softstart = ['Maxime', 'Eric', 'Francis', 'Jonathan 🐔', 'Jovan', 'Jonathan 🍐'];
+  const portrait = ['Maxime', 'Etienne', 'Kanika', 'GR', 'Mike', 'Ben', 'Abdoulaye', 'Victor', 'Kevin'];
+
+  const prompts = [
+    'Generate a non existent random inspirational quote that will energize my team in Yoda style and attribute it to Yoda',
+    'Generate a non existent random inspirational quote that will energize my team in a pirate voice and attribute it to pirate character',
+    'Generate a non existent random inspirational quote that sounds like a quote from a sci-fi movie and attribute it to a character.',
+    'Generate a non existent random inspirational quote that will revolutionize the tech industry and attribute it to the God of tech',
+    'Generate a non existent random inspirational quote using metaphors and attribute it to a real athlete.',
+    'Generate a home repairs protip from a 90s movie and attribute it to the movie\'s character.',
+    'Start writing an inspirational quote but veer into unspeakable dark eldrich horror right before the end. Attribute it to a comedy movie bad guy.',
+    `Write a shout out to ${sample(initialProject === 'softstart' ? softstart : portrait)}`,
+  ];
 
   useEffect(() => {
     const fetchData = async () => {
