@@ -89,7 +89,7 @@ const Celebration = () => {
 
   const initialProject = localStorage.getItem('project');
 
-  const softstart = ['Maxime', 'Eric', 'Francis', 'Jonathan 🐔', 'Jovan', 'Jonathan 🍐'];
+  const softstart = ['Eric', 'Francis', 'Jonathan 🐔', 'Jovan', 'Jonathan 🍐'];
   const portrait = ['Maxime', 'Etienne', 'Kanika', 'GR', 'Mike', 'Ben', 'Abdoulaye', 'Victor', 'Kevin'];
 
   const prompts = [
