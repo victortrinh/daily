@@ -114,7 +114,7 @@ const Celebration = () => {
       model: 'text-davinci-003',
       prompt: sample(prompts),
       max_tokens: 120,
-      temperature: 0.9,
+      temperature: 1,
       presence_penalty: 2,
     }).then((response) => {
       const [firstChoice] = response.data.choices;
