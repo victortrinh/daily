@@ -90,7 +90,7 @@ const Celebration = () => {
   const initialProject = localStorage.getItem('project');
 
   const softstart = ['Eric', 'Francis', 'Jonathan 🐔', 'Jovan', 'Jonathan 🍐'];
-  const portrait = ['Maxime', 'Etienne', 'Kanika', 'GR', 'Mike', 'Ben', 'Abdoulaye', 'Victor', 'Kevin'];
+  const portrait = ['Maxime', 'Etienne', 'Kanika', 'Guillaume', 'Mike', 'Ben', 'Abdoulaye', 'Victor', 'Kevin'];
 
   const prompts = [
     // 'Generate a non existent random inspirational quote that will energize my team in Yoda style and attribute it to Yoda',
