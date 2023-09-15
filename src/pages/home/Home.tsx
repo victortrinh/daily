@@ -14,7 +14,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 const StyledContainer = styled.div.attrs({ className: 'w-full h-screen' })`
   .toggles {
-    ${tw`w-full flex justify-center`};
+    ${tw`flex justify-center w-full`};
   }
 
   .checkboxes {
@@ -22,7 +22,7 @@ const StyledContainer = styled.div.attrs({ className: 'w-full h-screen' })`
   }
 
   .form {
-    ${tw`w-full p-8 flex flex-col justify-center rounded-xl bg-white dark:bg-darkblue my-8 shadow-default`};
+    ${tw`flex flex-col justify-center w-full p-8 my-8 bg-white rounded-xl dark:bg-darkblue shadow-default`};
   }
 
   .error {
@@ -38,13 +38,13 @@ const StyledContainer = styled.div.attrs({ className: 'w-full h-screen' })`
   }
 
   .collapse {
-    ${tw`cursor-pointer flex gap-3 my-4`};
+    ${tw`flex gap-3 my-4 cursor-pointer`};
   }
 `;
 
 const Home = () => {
   const softstartNames = 'Eric\nFrancis\nJonathan 🐔\nJovan\nJonathan 🍐';
-  const portraitNames = 'Maxime\nEtienne\nKanika\nGR\nMike\nBen\nAbdoulaye\nVictor\nKevin';
+  const portraitNames = 'Maxime\nEtienne\nKanika\nGR\nMike\nAbdoulaye\nVictor\nKevin';
 
   const navigate = useNavigate();
   const initialProject = localStorage.getItem('project');
