@@ -1,73 +1,34 @@
 {
   "name": "daily",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
-    "eject": "craco eject"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "@craco/craco": "^6.4.3",
-    "@emotion/react": "^11.8.1",
-    "@emotion/styled": "^11.8.1",
-    "@giphy/js-fetch-api": "^4.1.2",
-    "@giphy/react-components": "^5.6.1",
-    "@mui/icons-material": "^5.4.4",
-    "@mui/material": "^5.4.4",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^12.0.0",
-    "@testing-library/user-event": "^13.2.1",
-    "@types/jest": "^27.0.1",
-    "@types/matter-js": "^0.17.7",
-    "@types/node": "^16.7.13",
-    "@types/react": "^17.0.20",
-    "@types/react-dom": "^17.0.9",
-    "@types/react-router-dom": "^5.3.3",
-    "giph": "^1.0.1",
-    "matter-js": "^0.18.0",
-    "openai": "^3.1.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-icons": "^4.3.1",
-    "react-router-dom": "^6.2.2",
-    "react-scripts": "5.0.0",
-    "react-spring": "^9.4.3",
-    "styled-components": "^5.3.3",
-    "twin.macro": "^2.8.2",
-    "typescript": "^4.4.2",
-    "use-sound": "^4.0.1",
-    "web-vitals": "^2.1.0"
+    "@sharegate/eslint-config-recommended": "^3.0.1",
+    "@sharegate/eslint-config-typescript": "^4.0.1",
+    "flowbite": "^2.0.0",
+    "flowbite-react": "^0.6.4",
+    "next": "14.0.1",
+    "react": "^18",
+    "react-dom": "^18"
   },
   "devDependencies": {
-    "@types/styled-components": "^5.1.24",
-    "@typescript-eslint/eslint-plugin": "^5.13.0",
-    "@typescript-eslint/parser": "^5.13.0",
-    "autoprefixer": "^10.4.2",
-    "craco-alias": "^3.0.1",
-    "eslint": "^8.10.0",
+    "@babel/eslint-parser": "^7.22.15",
+    "@sharegate/eslint-config-nextjs": "^3.0.1",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8.53.0",
     "eslint-config-airbnb": "^19.0.4",
-    "eslint-import-resolver-alias": "^1.1.2",
-    "eslint-import-resolver-typescript": "^2.5.0",
-    "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-jsx-a11y": "^6.5.1",
-    "eslint-plugin-react": "^7.29.2",
-    "eslint-plugin-react-hooks": "^4.3.0",
-    "gh-pages": "^3.2.3",
-    "postcss": "^8.4.7",
-    "tailwindcss": "^3.0.23"
+    "eslint-config-next": "14.0.1",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5"
   }
 }

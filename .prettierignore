@@ -1,0 +1,6 @@
+// .prettierignore
+*.js
+*.jsx
+
+// or if you want to ignore all files
+*

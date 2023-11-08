@@ -1,64 +1,14 @@
 {
-  "env": {
-    "browser": true,
-    "es2021": true
-  },
   "extends": [
-    "plugin:react/recommended",
-    "airbnb",
-    "plugin:@typescript-eslint/recommended"
+    "@sharegate/eslint-config-recommended",
+    "@sharegate/eslint-config-typescript",
+    "@sharegate/eslint-config-nextjs"
   ],
-  "ignorePatterns": ["node_modules/"],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "ecmaVersion": "latest",
-    "sourceType": "module"
-  },
-  "plugins": ["react", "@typescript-eslint", "react-hooks"],
-  "settings": {
-    "import/resolver": {
-      "typescript": {},
-      "alias": {
-        "map": [
-          ["@common", "./src/common"],
-          ["@components", "./src/components"],
-          ["@pages", "./src/pages"],
-          ["@routes", "./src/routes"],
-          ["@hooks", "./src/hooks"]
-        ],
-        "extensions": [".ts", ".tsx"]
-      }
-    }
-  },
   "rules": {
-    "linebreak-style": "off",
-    "react/jsx-props-no-spreading": "off",
-    "react/function-component-definition": "off",
-    "react/require-default-props": "off",
-    "no-use-before-define": "off",
-    "@typescript-eslint/no-use-before-define": "off",
-    "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "ts": "never",
-        "tsx": "never"
-      }
-    ],
-    "no-shadow": "off",
-    "@typescript-eslint/no-shadow": ["error"],
-    "@typescript-eslint/explicit-function-return-type": ["off"],
-    "max-len": "off",
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "off",
-    "import/prefer-default-export": "off",
-    "react/prop-types": "off",
-    "no-nested-ternary": "off",
-    "no-plusplus": "off",
-    "react/react-in-jsx-scope": "off"
+    "@typescript-eslint/indent": ["error", 2],
+    "react/jsx-filename-extension": "off",
+    "@typescript-eslint/no-implicit-any-catch": "off",
+    "react/jsx-one-expression-per-line": "error",
+    "react/jsx-indent": [ "error", 2]
   }
 }
