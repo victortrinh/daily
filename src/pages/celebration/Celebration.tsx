@@ -8,17 +8,18 @@ import { animated } from 'react-spring';
 import Icon from '@mui/icons-material/Celebration';
 import useBoop from '@/hooks/use-boop.hook';
 import { faces } from '@/assets/default-sprites';
-import { Configuration, OpenAIApi } from 'openai';
+import OpenAI from 'openai';
 import { sample } from '@/utils';
+import { ChatCompletion } from 'openai/resources';
 import { ConfettiGeyser } from './components';
 import { backgroundColors } from '../daily/utils/background-colors';
 import { IGif } from './types/gif';
 
-const configuration = new Configuration({
+const openai = new OpenAI({
   organization: process.env.REACT_APP_ORGANIZATION_ID,
   apiKey: process.env.REACT_APP_OPEN_API_SECRET,
+  dangerouslyAllowBrowser: true,
 });
-const openai = new OpenAIApi(configuration);
 
 const gf = new GiphyFetch('HTMGm6cO0h71Clpw9QqXqpoOyEApQZHp');
 const CelebrationIcon = animated(Icon);
@@ -110,15 +111,12 @@ const Celebration = () => {
       setGif(result.data?.[Math.floor(Math.random() * result.data.length)]);
     };
 
-    openai.createCompletion({
-      model: 'text-davinci-003',
-      prompt: sample(prompts),
-      max_tokens: 120,
-      temperature: 1,
-      presence_penalty: 2,
-    }).then((response) => {
-      const [firstChoice] = response.data.choices;
-      setQuote(firstChoice.text);
+    openai.chat.completions.create({
+      messages: [{ role: 'user', content: sample(prompts) }],
+      model: 'gpt-3.5-turbo',
+    }).then((response: ChatCompletion) => {
+      const [firstChoice] = response.choices;
+      setQuote(firstChoice.message.content ?? '');
     });
 
     fetchData();
