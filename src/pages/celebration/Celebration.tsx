@@ -88,11 +88,6 @@ const Celebration = () => {
     }, 5000);
   };
 
-  const initialProject = localStorage.getItem('project');
-
-  const softstart = ['Eric', 'Francis', 'Jonathan 🐔', 'Jovan', 'Jonathan 🍐'];
-  const portrait = ['Guillaume', 'KFales', 'Abdoulaye', 'Victor', 'Kevin', 'JiPé'];
-
   const prompts = [
     // 'Generate a non existent random inspirational quote that will energize my team in Yoda style and attribute it to Yoda',
     // 'Generate a non existent random inspirational quote that will energize my team in a pirate voice and attribute it to pirate character',
@@ -101,7 +96,7 @@ const Celebration = () => {
     // 'Generate a non existent random inspirational quote using metaphors and attribute it to a real athlete.',
     // 'Generate a home repairs protip from a 90s movie and attribute it to the movie\'s character.',
     // 'Start writing an inspirational quote but veer into unspeakable dark eldrich horror right before the end. Attribute it to a comedy movie bad guy.',
-    `Write a shout out to ${sample(initialProject === 'softstart' ? softstart : portrait)}`,
+    'Write a random technology fact of the day',
   ];
 
   useEffect(() => {
@@ -153,7 +148,7 @@ const Celebration = () => {
           onGifClick={randomGif}
         />
       )}
-      <h3>Quote of the day</h3>
+      <h3>Random technology fact of the day</h3>
       {quote ? (
         <div className="quote-container" aria-hidden="true">
           <div className="quote">
