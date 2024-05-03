@@ -88,16 +88,16 @@ const Celebration = () => {
     }, 5000);
   };
 
-  const prompts = [
-    // 'Generate a non existent random inspirational quote that will energize my team in Yoda style and attribute it to Yoda',
-    // 'Generate a non existent random inspirational quote that will energize my team in a pirate voice and attribute it to pirate character',
-    // 'Generate a non existent random inspirational quote that sounds like a quote from a sci-fi movie and attribute it to a character.',
-    // 'Generate a non existent random inspirational quote that will revolutionize the tech industry and attribute it to the God of tech',
-    // 'Generate a non existent random inspirational quote using metaphors and attribute it to a real athlete.',
-    // 'Generate a home repairs protip from a 90s movie and attribute it to the movie\'s character.',
-    // 'Start writing an inspirational quote but veer into unspeakable dark eldrich horror right before the end. Attribute it to a comedy movie bad guy.',
-    'Write a random technology fact of the day',
-  ];
+  // const prompts = [
+  //   // 'Generate a non existent random inspirational quote that will energize my team in Yoda style and attribute it to Yoda',
+  //   // 'Generate a non existent random inspirational quote that will energize my team in a pirate voice and attribute it to pirate character',
+  //   // 'Generate a non existent random inspirational quote that sounds like a quote from a sci-fi movie and attribute it to a character.',
+  //   // 'Generate a non existent random inspirational quote that will revolutionize the tech industry and attribute it to the God of tech',
+  //   // 'Generate a non existent random inspirational quote using metaphors and attribute it to a real athlete.',
+  //   // 'Generate a home repairs protip from a 90s movie and attribute it to the movie\'s character.',
+  //   // 'Start writing an inspirational quote but veer into unspeakable dark eldrich horror right before the end. Attribute it to a comedy movie bad guy.',
+  //   'Write a random technology fact of that happened on this day of the year',
+  // ];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -107,7 +107,7 @@ const Celebration = () => {
     };
 
     openai.chat.completions.create({
-      messages: [{ role: 'user', content: sample(prompts) }],
+      messages: [{ role: 'user', content: 'Write a random technology fact of that happened on this day of the year' }],
       model: 'gpt-3.5-turbo',
     }).then((response: ChatCompletion) => {
       const [firstChoice] = response.choices;
