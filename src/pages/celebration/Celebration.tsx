@@ -98,7 +98,7 @@ const Celebration = () => {
     const dayMonth = date.toLocaleString('default', { month: 'long', day: 'numeric' });
 
     openai.chat.completions.create({
-      messages: [{ role: 'user', content: `Tell me a fun fact that's relevant to the tech, software, or hardware industry on ${dayMonth}. Don't include any preamble, only the fact itself.` }],
+      messages: [{ role: 'user', content: `Tell me a real fact that's relevant to the tech, software, or hardware industry on ${dayMonth}. Don't include any preamble, only the fact itself.` }],
       model: 'gpt-4',
     }).then((response: ChatCompletion) => {
       const [firstChoice] = response.choices;
