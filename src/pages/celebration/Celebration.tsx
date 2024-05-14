@@ -94,8 +94,11 @@ const Celebration = () => {
       setGif(result.data?.[Math.floor(Math.random() * result.data.length)]);
     };
 
+    const date = new Date();
+    const dayMonth = date.toLocaleString('default', { month: 'long', day: 'numeric' });
+
     openai.chat.completions.create({
-      messages: [{ role: 'user', content: 'Write a random tech fact that happened on the same day as today' }],
+      messages: [{ role: 'user', content: `Tell me a fun fact that's relevant to the tech, software, or hardware industry on ${dayMonth}. Don't include any preamble, only the fact itself.` }],
       model: 'gpt-4',
     }).then((response: ChatCompletion) => {
       const [firstChoice] = response.choices;
