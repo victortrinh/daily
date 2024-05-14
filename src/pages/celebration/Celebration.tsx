@@ -96,7 +96,7 @@ const Celebration = () => {
 
     openai.chat.completions.create({
       messages: [{ role: 'user', content: 'Write a random tech fact that happened on the same day as today' }],
-      model: 'gpt-3.5-turbo',
+      model: 'gpt-4',
     }).then((response: ChatCompletion) => {
       const [firstChoice] = response.choices;
       setQuote(firstChoice.message.content ?? '');
