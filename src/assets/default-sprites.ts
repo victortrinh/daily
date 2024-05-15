@@ -53,24 +53,10 @@ export const faces = [
   },
   {
     src:
-      `${process.env.PUBLIC_URL}/photos/mini-ben-glab.png`,
-    width: 5,
-    height: 5,
-    airFrictionMultiplier: 0.75,
-  },
-  {
-    src:
     `${process.env.PUBLIC_URL}/photos/mini-francis-glab.png`,
     width: 5,
     height: 5,
     airFrictionMultiplier: 1.2,
-  },
-  {
-    src:
-    `${process.env.PUBLIC_URL}/photos/mini-jean-luc-glab.png`,
-    width: 5,
-    height: 5,
-    airFrictionMultiplier: 1.15,
   },
   {
     src:
@@ -117,13 +103,6 @@ export const faces = [
   {
     src:
       `${process.env.PUBLIC_URL}/photos/mini-gr-glab.png`,
-    width: 5,
-    height: 5,
-    airFrictionMultiplier: 0.75,
-  },
-  {
-    src:
-      `${process.env.PUBLIC_URL}/photos/mini-mike-glab.png`,
     width: 5,
     height: 5,
     airFrictionMultiplier: 0.75,
