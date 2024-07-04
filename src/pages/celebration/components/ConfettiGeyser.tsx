@@ -8,8 +8,7 @@ import useInterval from '@/hooks/use-interval.hook';
 import {
   sample, random, normalize,
 } from '@/utils';
-
-import { faces } from '@/assets/default-sprites';
+import { sprites } from '@/assets/default-sprites';
 
 const convertDegreesToRadians = (angle: number) => (angle * Math.PI) / 180;
 
@@ -136,7 +135,7 @@ export const ConfettiGeyser = ({
   // 15: moderate
   // 30: intense
   concentration,
-  samples = faces,
+  samples = sprites,
 }: any) => {
   const canvasRef = React.useRef(null);
 

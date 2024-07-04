@@ -7,7 +7,7 @@ import tw from 'twin.macro';
 import { animated } from 'react-spring';
 import Icon from '@mui/icons-material/Celebration';
 import useBoop from '@/hooks/use-boop.hook';
-import { faces } from '@/assets/default-sprites';
+import { sprites } from '@/assets/default-sprites';
 import OpenAI from 'openai';
 import { ChatCompletion } from 'openai/resources';
 import { ConfettiGeyser } from './components';
@@ -98,7 +98,7 @@ const Celebration = () => {
     const dayMonth = date.toLocaleString('default', { month: 'long', day: 'numeric' });
 
     openai.chat.completions.create({
-      messages: [{ role: 'user', content: `Tell me a real fact that's relevant to the tech, software, or hardware industry on ${dayMonth}. Don't include any preamble, only the fact itself.` }],
+      messages: [{ role: 'user', content: `Tell me a real fun fact that's relevant to the tech, software, or hardware industry on ${dayMonth} more than 10 years ago. Don't include any preamble, only the fact itself.` }],
       model: 'gpt-4',
     }).then((response: ChatCompletion) => {
       const [firstChoice] = response.choices;
@@ -164,7 +164,7 @@ const Celebration = () => {
           spread={20}
           volatility={0.75}
           concentration={50}
-          samples={showConfettis ? faces : [{ airFrictionMultiplier: 0 }]}
+          samples={showConfettis ? sprites : [{ airFrictionMultiplier: 0 }]}
         />
       )}
     </StyledContainer>
