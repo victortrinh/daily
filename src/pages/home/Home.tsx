@@ -42,14 +42,22 @@ const StyledContainer = styled.div.attrs({ className: 'w-full h-screen' })`
   }
 `;
 
+const projects = {
+  softstart: 'Eric\nFrancis\nJonathan 🐔\nJovan',
+  portrait: 'GR\nAbdoulaye\nKevin\nKFales\nFrancis',
+  ovcore: 'Victor\nJasmin\nAlex\nXavier\nPatrick\nMabl',
+};
+
+type Project = keyof typeof projects;
+
 const Home = () => {
   const softstartNames = 'Eric\nFrancis\nJonathan 🐔\nJovan';
   const portraitNames = 'GR\nAbdoulaye\nKevin\nKFales\nFrancis';
 
   const navigate = useNavigate();
-  const initialProject = localStorage.getItem('project');
-  const [project, setProject] = useState(initialProject ?? 'softstart');
-  const [names, setNames] = useState(project === 'portrait' ? portraitNames : softstartNames);
+  const initialProject = localStorage.getItem('project') as Project | null;
+  const [project, setProject] = useState<Project>(initialProject ?? 'softstart');
+  const [names, setNames] = useState(projects[project]);
   const [waitlist, setWaitlist] = useState<null | string>(null);
   const [error, setError] = useState(false);
   const [collapsed, setCollapsed] = useState(true);
@@ -80,17 +88,11 @@ const Home = () => {
 
   const handleProjectChange = (
     event: React.MouseEvent<HTMLElement>,
-    newProject: string,
+    newProject: Project,
   ) => {
     setProject(newProject);
     localStorage.setItem('project', newProject);
-
-    if (newProject === 'portrait') {
-      setNames(portraitNames);
-      return;
-    }
-
-    setNames(softstartNames);
+    setNames(projects[newProject]);
   };
 
   return (
@@ -104,6 +106,7 @@ const Home = () => {
       >
         <ToggleButton value="softstart">Softstart</ToggleButton>
         <ToggleButton value="portrait">Workleap</ToggleButton>
+        <ToggleButton value="ovcore">Ovcore</ToggleButton>
       </ToggleButtonGroup>
       <div className="form">
         <h1>Enter people participating in daily</h1>
